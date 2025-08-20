@@ -7,5 +7,5 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=schueler
-    expose:
-      - 5432
+    ports:
+      - 5432:5432
