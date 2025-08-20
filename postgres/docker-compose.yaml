@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    shm_size: 128mb
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=schueler
+    expose:
+      - 5432
