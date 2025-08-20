@@ -3,7 +3,7 @@
 #   - VIRTUAL_HOST: "URL.COM,SUB.URL.COM"
 #   - LETSENCRYPT_HOST: "URL.COM,SUB.URL.COM"
 # networks:
-#   - "web"
+#   - web
 # networks:
 #   web:
 #      external: true
