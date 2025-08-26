@@ -1,0 +1,15 @@
+services:
+  vaultwarden:
+    container_name: vaultwarden
+    image: vaultwarden/server
+    restart: unless-stopped
+    volumes:
+      - ./vw-data/:/data/
+    ports:
+      - 80:80
+    environment:
+      - EMERGENCY_ACCESS_ALLOWED=true
+      - SIGNUPS_ALLOWED=true
+      - SIGNUPS_VERIFY=true
+      - SIGNUPS_VERIFY_RESEND_TIME=3600
+      - SIGNUPS_VERIFY_RESEND_LIMIT=5
