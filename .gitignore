@@ -7,5 +7,6 @@
 !*/docker-compose.yaml
 !*/compose.yml
 !*/compose.yaml
+!*/.env.example
 !*/*.conf
 !.gitignore
