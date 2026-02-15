@@ -1,7 +1,7 @@
 services:
   vaultwarden:
     container_name: vaultwarden
-    image: vaultwarden/server
+    image: vaultwarden/server:latest
     restart: unless-stopped
     volumes:
       - ./vw-data/:/data/
@@ -9,7 +9,35 @@ services:
       - 80:80
     environment:
       - EMERGENCY_ACCESS_ALLOWED=true
-      - SIGNUPS_ALLOWED=true
+      - SIGNUPS_ALLOWED=false
       - SIGNUPS_VERIFY=true
       - SIGNUPS_VERIFY_RESEND_TIME=3600
       - SIGNUPS_VERIFY_RESEND_LIMIT=5
+  vaultwarden-backup:
+    container_name: vaultwarden-backup
+    image: bruceforce/vaultwarden-backup:latest
+    restart: unless-stopped
+    init: true
+    depends_on:
+      - vaultwarden
+    volumes:
+      - ./vw-data:/data/
+      - ./vw-backups/backups/:/backups/
+      - ./vw-backups/logs/:/logs/
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - BACKUP_DIR=/backups/
+      - LOG_DIR=/logs/
+      - CRON_TIME=0 5 * * 0 # every sunday at 5am
+      - DELETE_AFTER=30 # delete after 30 days
+      - TIMESTAMP=true
+      - UID=1000
+      - GID=992
+      - BACKUP_ADD_DATABASE=true
+      - BACKUP_ADD_ATTACHMENTS=true
+      - BACKUP_ADD_CONFIG_JSON=true
+      - BACKUP_ADD_ICON_CACHE=true
+      - BACKUP_ADD_RSA_KEY=true
+      - LOG_LEVEL=INFO
+      - TZ=CET
