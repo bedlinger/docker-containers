@@ -1,0 +1,11 @@
+services:
+  gotify:
+    container_name: gotify
+    image: gotify/server:latest
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    environment:
+      - TZ="Europe/Vienna"
+    volumes:
+      - "./gotify-data:/app/data"
