@@ -8,7 +8,7 @@ services:
     command:
       - serve
     environment:
-      TZ=CET: # Vienna Timezone
+      TZ: "Europe/Vienna"
       NTFY_BASE_URL: "https://ntfy.tailda5058.ts.net"
       NTFY_AUTH_FILE: "/var/lib/ntfy/auth.db"
       NTFY_ENABLE_LOGIN: "true"
