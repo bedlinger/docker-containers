@@ -7,18 +7,9 @@ services:
       - 4000:80
     command:
       - serve
-    environment:
-      TZ: "Europe/Vienna"
-      NTFY_BASE_URL: "https://ntfy.tailda5058.ts.net"
-      NTFY_AUTH_FILE: "/var/lib/ntfy/auth.db"
-      NTFY_ENABLE_LOGIN: "true"
-      NTFY_REQUIRE_LOGIN: "true"
-      NTFY_CACHE_FILE: "/var/cache/ntfy/cache.db"
-      NTFY_UPSTREAM_BASE_URL: "https://ntfy.sh"
-      NTFY_AUTH_USERS: ${NTFY_AUTH_USERS}
-    user: 501:20 # UID:GID - get via id command
     volumes:
       - ./ntfy-data/cache:/var/cache/ntfy
+      - ./ntfy-data/cache/attachments:/var/cache/ntfy/attachments
       - ./ntfy-data/lib:/var/lib/ntfy
       - ./ntfy-data/etc:/etc/ntfy
     healthcheck:
@@ -32,3 +23,27 @@ services:
       retries: 3
       start_period: 40s
     init: true # needed, if healthcheck is used. Prevents zombie processes
+
+
+# server.yml - located in ./ntfy-data/etc/
+# Server
+# base-url: "https://ntfy.tailda5058.ts.net"
+
+# Access control
+# auth-file: "/var/lib/ntfy/auth.db"
+# auth-default-access: "deny-all"
+# auth-users:
+#   - "admin-user:.......:admin"
+# enable-login: true
+# require-login: true
+
+# Attachments
+# attachment-cache-dir: "/var/cache/ntfy/attachments"
+# attachment-total-size-limit: "1G"
+# attachment-expiry-duration: "1h"
+
+# Message cache
+# cache-file: "/var/cache/ntfy/cache.db"
+
+# Upstream
+# upstream-base-url: "https://ntfy.sh"
